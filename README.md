@@ -1,4 +1,4 @@
-# ♻️ Smart Waste Platform – EcoRewards
+# ♻️ Usafi Mtaani
 
 A full-stack waste management web application that promotes responsible recycling through a loyalty rewards system. Built with **Node.js**, **Express**, **React**, and **Tailwind CSS**, the app offers secure user authentication, tiered incentives, and a clean, responsive UI.
 
@@ -110,4 +110,5 @@ Jerald Hindia Simba Project Owner
 
 📎 License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
 
