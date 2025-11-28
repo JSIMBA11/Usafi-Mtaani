@@ -6,13 +6,18 @@ import App from "./App.jsx";
 import Login from "./pages/Login.jsx";
 import Home from "./pages/Home.jsx";
 import Loyalty from "./pages/Loyalty.jsx";
+import ForgotPassword from "./components/ForgotPassword.jsx";
+import Register from "./pages/Register.jsx";
+
 import {
   createBrowserRouter,
   RouterProvider,
   Navigate,
 } from "react-router-dom";
 
-// Protected route wrapper
+// -------------------------------
+// ProtectedRoute wrapper
+// -------------------------------
 function ProtectedRoute({ children }) {
   const user = localStorage.getItem("user");
   if (!user) {
@@ -21,32 +26,54 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
-// Define routes
+// -------------------------------
+// Router configuration
+// -------------------------------
 const router = createBrowserRouter([
-  { path: "/", element: <Login /> }, // login first
   {
-    path: "/home",
-    element: (
-      <ProtectedRoute>
-        <Home />
-      </ProtectedRoute>
+    path: "/",
+    element: <App />, // ✅ Layout with header/footer + <Outlet />
+    errorElement: (
+      <div className="p-6 text-red-600">
+        <h2 className="text-lg font-semibold">Oops! Something went wrong.</h2>
+        <p>Unexpected application error occurred.</p>
+      </div>
     ),
-  },
-  {
-    path: "/loyalty",
-    element: (
-      <ProtectedRoute>
-        <Loyalty />
-      </ProtectedRoute>
-    ),
+    children: [
+      { index: true, element: <Login /> },
+      {
+        path: "home",
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "loyalty",
+        element: (
+          <ProtectedRoute>
+            <Loyalty />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword setActiveTab={() => {}} />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+    ],
   },
 ]);
 
-// Mount React app
+// -------------------------------
+// Render root
+// -------------------------------
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App>
-      <RouterProvider router={router} />
-    </App>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
